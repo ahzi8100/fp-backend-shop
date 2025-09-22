@@ -66,11 +66,11 @@ class CheckoutController extends Controller
                     'product_id' => $cart->product_id,
                     'product_name' => $cart->product->title,
                     'image' => $cart->product->image,
-                    'qty' => $cart->quantity,
+                    'qty' => $cart->qty,
                     'price' => $cart->price,
                 ];
 
-                $cart->product->decrement('stock', $cart->quantity);
+                $cart->product->decrement('stock', $cart->qty);
             }
 
             $invoice->orders()->createMany($orders);
