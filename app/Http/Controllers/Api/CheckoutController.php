@@ -111,7 +111,7 @@ class CheckoutController extends Controller
         $payload = $request->getContent(); // Midtrans mengirimkan data dalam format JSON
         $notification = json_decode($payload);
 
-        $validSignatureKey = hash("sha512", $notification->order_id, $notification->status_code . $notification->gross_amount . config('services.midtrans.serverKey'));
+        $validSignatureKey = hash("sha512", $notification->order_id. $notification->status_code . $notification->gross_amount . config('services.midtrans.serverKey'));
 
         if ($notification->signature_key != $validSignatureKey) {
             return response(['message' => 'Invalid Signature'], 403);
